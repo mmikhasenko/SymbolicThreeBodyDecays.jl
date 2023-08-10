@@ -35,7 +35,8 @@ end
 # redefine wignerd_doublearg
 function wignerd_doublearg(two_j, two_λ1, two_λ2, cosθ::cosHold)
     half = 1 / Sym(2)
-    WignerD(two_j * half, two_λ1 * half, two_λ2 * half,
+    (abs(two_λ1) > two_j || abs(two_λ2) > two_j) && return zero(cosθ.angle)
+    return WignerD(two_j * half, two_λ1 * half, two_λ2 * half,
         0, cosθ.angle, 0)
 end
 

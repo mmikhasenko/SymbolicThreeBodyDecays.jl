@@ -2,7 +2,7 @@
 
 julia_version = "1.9.2"
 manifest_format = "2.0"
-project_hash = "b6b13940cf1ef079edce7664def46bbfc0295e58"
+project_hash = "f63c176ddbb0c91b9f0d27f5ddcca646803d221f"
 
 [[deps.ArgTools]]
 uuid = "0dad84c5-d112-42e6-8d28-ef12dabb789f"
@@ -366,13 +366,9 @@ deps = ["ArgTools", "SHA"]
 uuid = "a4e569a6-e804-4fa4-b0f3-eef7a1d5b13e"
 version = "1.10.0"
 
-[[deps.Test]]
-deps = ["InteractiveUtils", "Logging", "Random", "Serialization"]
-uuid = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
-
 [[deps.ThreeBodyDecay]]
 deps = ["Cuba", "Parameters", "PartialWaveFunctions", "Polynomials", "QuadGK", "RecipesBase", "StaticArrays"]
-git-tree-sha1 = "e39c88b58baf69aaa6b718e609c2c5a9b310a82c"
+git-tree-sha1 = "afca12a9bb5fae018b782c2bdbfef568b1ba8229"
 repo-rev = "master"
 repo-url = "https://github.com/mmikhasenko/ThreeBodyDecay.jl"
 uuid = "e6563dab-9ca1-5843-bde3-2ccf38d63843"

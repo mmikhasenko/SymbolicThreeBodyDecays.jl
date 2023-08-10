@@ -40,3 +40,10 @@ function wignerd_doublearg(two_j, two_λ1, two_λ2, cosθ::cosHold)
 end
 
 
+# redefine Clebsches
+function CG_doublearg(two_j1, two_m1::Sym, two_j2, two_m2::Sym, two_j, two_m::Sym)
+    half = 1 / Sym(2)
+    CG(two_j1 * half, two_m1 * half,
+        two_j2 * half, two_m2 * half,
+        two_j * half, two_m * half)
+end

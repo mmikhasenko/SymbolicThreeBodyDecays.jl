@@ -10,6 +10,8 @@ begin
     cd(joinpath(@__DIR__, ".."))
     using Pkg
     Pkg.activate(".")
+    Pkg.instantiate()
+    Pkg.add("Plots")
     # 
     using SymbolicThreeBodyDecays
     using ThreeBodyDecay

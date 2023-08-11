@@ -1,5 +1,6 @@
 # SymbolicThreeBodyDecays.jl
 
+![Build Status](https://github.com/mmikhasenko/SymbolicThreeBodyDecays.jl/actions/workflows/ci.yaml/badge.svg)
 [![arXiv article](https://img.shields.io/badge/article-PRD%20101%2C%20034033-yellowgreen)](https://arxiv.org/abs/1910.04566)
 
 This repository provides a Julia implementation that extends the functionality of the [ThreeBodyDecay.jl](https://github.com/mmikhasenko/ThreeBodyDecay.jl) project to work with SymPy objects. It allows for symbolic computation in the context of three-body decays using the Dalitz-Plot Decomposition.

@@ -50,5 +50,5 @@ expr_symbols = expr.free_symbols |> collect
     @test σ1 ∉ expr_symbols
     @test σ2 ∉ expr_symbols
     @test σ3 ∉ expr_symbols
-    @test Sym("θ_12") ∈ expr_symbols
+    @test sympy.symbols("θ_12", real=true) ∈ expr_symbols
 end

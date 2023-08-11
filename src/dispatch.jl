@@ -12,7 +12,7 @@ end
 # redefine cosθij
 function cosθij(k, σs::StickySymTuple{(:σ1, :σ2, :σ3),3}, msq)
     i, j, _ = ijk(k)
-    θ = Sym(Symbol("θ_", i, j))[1]
+    θ = SymPy.symbols(Symbol("θ_", i, j), real=true)
     cosHold(θ, cosθij(k, getfield(σs, :data), msq))
 end
 
@@ -26,7 +26,7 @@ for N in (0, 2, 3)
     eval(:(
         function cosζ(wr::WignerRotation{$(N)},
             σs::StickySymTuple{(:σ1, :σ2, :σ3),3}, msq)
-            ζ = Sym("ζ" * label(wr))
+            ζ = SymPy.symbols("ζ" * label(wr), real=true)
             return cosHold(ζ, cosζ(wr, getfield(σs, :data), msq))
         end
     ))

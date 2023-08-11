@@ -10,6 +10,7 @@ begin
     cd(joinpath(@__DIR__, ".."))
     using Pkg
     Pkg.activate(".")
+    Pkg.instantiate()
     # 
     using SymbolicThreeBodyDecays
     using ThreeBodyDecay

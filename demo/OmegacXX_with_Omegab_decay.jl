@@ -68,8 +68,9 @@ function decay_via_xic2645(jpR, P0='+')
     R(σ) = Sym("R")
     # 
     # decay chain
-    dc = DecayChainLS(3, R; two_s=Rjp.j |> x2, parity=Rjp.p, Ps, tbs)
-    return dc
+    dc_all = DecayChainsLS(3, R; two_s=Rjp.j |> x2, parity=Rjp.p, Ps, tbs)
+	size(dc_all) != (1,1) && @info "More couplings"
+    return dc_all |> first
 end
 
 # ╔═╡ a0c25e13-3008-45ff-ae73-858edab939d4
@@ -84,7 +85,8 @@ end;
 function I(jp0, P0='+')
     dc = decay_via_xic2645(jp0, P0)
     full_amplitude = sum(itr(dc.tbs.two_js)) do two_λs
-        amplitude(dc, σs |> StickySymTuple, two_λs .|> Sym; refζs=(3, 1, 1, 3)).doit()^2
+        A = amplitude(dc, σs |> StickySymTuple, two_λs .|> Sym; refζs=(3, 1, 1, 3)).doit()
+		abs2(A)
     end
     full_amplitude |> simplify |> simplify
 end
@@ -107,11 +109,13 @@ I("5/2+",'+') == I("5/2-",'+') == I("5/2+",'-') == I("5/2-",'-') && I("5/2+")
 begin
     plot(title="Ωc(1/2±) → Ωc(JP)π")
     for jp in vec(string.(1:2:5) .* "/2+")
-        expr = I(jp).subs(dc_test.Xlineshape(0), Sym(1))
-        θ12 = Sym("θ_12")
-        cosθ = Sym("x")
-        e = expr.subs(θ12, acos(cosθ)) + 1e-7 * cosθ
-        plot!(e, -1, 1, lab=jp, lw=1.5)
+		I_jp = I(jp)
+		@syms θ12::real=>"θ_12" cosθ
+        expr = I_jp.subs(Dict(
+			dc_test.Xlineshape(0) => Sym(1),
+			θ12 => acos(cosθ)
+		), simultaneous=true) + 1e-7 * cosθ
+        plot!(expr, -1, 1, lab=jp, lw=1.5)
     end
     plot!(ylim=(0, :auto), legend_title="JP")
 end

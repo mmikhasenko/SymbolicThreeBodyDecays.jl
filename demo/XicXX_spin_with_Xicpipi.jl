@@ -84,7 +84,8 @@ end;
 function I(jp0)
     dc = decay_via_xic2645(jp0)
     full_amplitude = sum(itr(dc.tbs.two_js)) do two_λs
-        amplitude(dc, σs |> StickySymTuple, two_λs .|> Sym; refζs=(3, 1, 1, 3)).doit()^2
+		A = amplitude(dc, StickySymTuple(σs), Sym.(two_λs); refζs=(3, 1, 1, 3)).doit()
+    	abs2(A)
     end
     full_amplitude |> simplify |> simplify
 end
@@ -116,10 +117,10 @@ I("5/2-")
 begin
 	plot(title="Ξc(JP) → Ξc(3/2+)π")
 	for jp in vec(string.(1:2:5) .* "/2" .* ['+' '-'])
-		expr = I(jp).subs(dc_12p.Xlineshape(0), Sym(1))
-		θ12 = Sym("θ_12")
-		cosθ = Sym("x")
+		expr = I(jp).subs(dc_12p.Xlineshape(0), Sym(1), simultaneous=true)
+		@syms θ12::real=>"θ_12" cosθ
 		e = expr.subs(θ12, acos(cosθ)) + 1e-7*cosθ
+		# @show e
 		plot!(e, -1, 1, lab=jp, lw=1.5)
 	end
 	plot!(ylim=(0,:auto), legend_title="JP")

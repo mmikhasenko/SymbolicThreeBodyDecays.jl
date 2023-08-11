@@ -2,6 +2,12 @@ name: CI
 on:
   - push
   - pull_request
+
+# When two jobs run in parallel, cancel the older ones, to make sure that the website is generated from the most recent commit.
+concurrency:
+    group: Tests-nightly
+    cancel-in-progress: true
+
 jobs:
   test:
     name: Julia ${{ matrix.version }} - ${{ matrix.os }} - ${{ matrix.arch }} - ${{ github.event_name }}

@@ -23,10 +23,14 @@ end
 
 # ╔═╡ 37eca537-c92f-4006-8f45-a15ca3174f9e
 md"""
-# ThreeBodyDecay with SymPy
+# Lb decays with open flavor (Pc search)
 
-The notebook calls `ThreeBodyDecay` implementation passing `SymPy` object.
-With redefinion of a few function, the amplitude function spits nice symbolic expredssion. Nice!
+The notebook computes the angular distributions in the decay
+
+$\varLambda_b^0 \to D_{s1}^- (\to D^{*0} K^-)\, \varLambda_c^+$
+
+There are two possible LS couplings in the decays of $D_{s1}$, the S and D waves,
+and several possible LS in the $\Lambda_b^0$ decays due to unconstrained parity in the weak-current process.
 """
 
 # ╔═╡ 8b28c3c6-9e94-419d-9e35-ac82edc3a832

@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.19.22
+# v0.19.27
 
 using Markdown
 using InteractiveUtils
@@ -23,10 +23,19 @@ end
 
 # ╔═╡ 37eca537-c92f-4006-8f45-a15ca3174f9e
 md"""
-# ThreeBodyDecay with SymPy
+# Inclusive production of Ξc(JP) baryon
 
-The notebook calls `ThreeBodyDecay` implementation passing `SymPy` object.
-With redefinion of a few function, the amplitude function spits nice symbolic expredssion. Nice!
+The notebook explores intensity variations in the three-body decays in $\Xi_c^{**}$ baryons in the Dalitz plot.
+
+In the reaction,
+
+$\varXi_c^{**+}(J^P) \to \varXi_c^+(3/2^+) (\to \varXi_c^+\pi^-) \pi^+$
+
+The resonance, $\varXi_c^+(3/2^+)$ looks like a band. The intesity varies along the bans. This distribution is a translation of the helicity-angle distribution for the decay $\varXi_c^+(3/2^+) \to \varXi_c^+\pi^-$.
+
+Angular distribution is evaluated for different configuations of the LS couplings.
+The shape changes, between a parabola with tails up, and parabola with tails down.
+In reality, all LS are present making it hard to measure the spin using only this distribution.
 """
 
 # ╔═╡ 8b28c3c6-9e94-419d-9e35-ac82edc3a832
@@ -122,7 +131,8 @@ begin
 			plot!(expr, -1, 1; lab=jp*" $(div(dc.HRk.two_ls[1],2))", lw=1.5, c=c)
 		end        
 	end
-	plot!(ylim=(0,:auto), legend_title="JP L")
+	plot!(ylim=(0,:auto), legend_title="JP L",
+		xlab="cosine of \$\\varXi_{c}(3/2+)\$ helicity angle")
 end
 
 # ╔═╡ Cell order:

@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.19.22
+# v0.19.27
 
 using Markdown
 using InteractiveUtils
@@ -23,10 +23,15 @@ end
 
 # ╔═╡ 37eca537-c92f-4006-8f45-a15ca3174f9e
 md"""
-# ThreeBodyDecay with SymPy
+# Studies of Omegac** spin
 
-The notebook calls `ThreeBodyDecay` implementation passing `SymPy` object.
-With redefinion of a few function, the amplitude function spits nice symbolic expredssion. Nice!
+The calculations revieals the angular distribution from the [LHCb paper](https://inspirehep.net/literature/1879440).
+It is a weak decay of $\Omega_c^0$ baryon
+
+$\varOmega_c^-(1/2^\pm) \to \varOmega_c^{**0}(J^P) \pi^-$
+
+The $\varOmega_c^{**0}(J^P)$ resonances appear in the $\varLambda_c^+ K^-$ system.
+The angular distributions are not sensitive to the parity. Still a non-trivial angular dependence appears since $\Omega_b^-$ spin only avarages out $\pm 1/2$ spin projections. 
 """
 
 # ╔═╡ 8b28c3c6-9e94-419d-9e35-ac82edc3a832
@@ -109,7 +114,7 @@ I("5/2+",'+') == I("5/2-",'+') == I("5/2+",'-') == I("5/2-",'-') && I("5/2+")
 
 # ╔═╡ 2a01b8da-3066-469e-a67d-3738816f6c79
 begin
-    plot(title="Ωc(1/2±) → Ωc(JP)π")
+    plot(title="\$\\varOmega_b^-(1/2^\\pm) \\to \\varOmega_c^{**}(J^P) \\pi^-\$")
     for jp in vec(string.(1:2:5) .* "/2+")
 		I_jp = I(jp)
 		@syms θ12::real=>"θ_12" cosθ
@@ -119,7 +124,8 @@ begin
 		), simultaneous=true) + 1e-7 * cosθ
         plot!(expr, -1, 1, lab=jp, lw=1.5)
     end
-    plot!(ylim=(0, :auto), legend_title="JP")
+    plot!(ylim=(0, :auto), legend_title="JP",
+		xlab="cosine of \$\\varOmega_c^{**0}\$ helicity angle")
 end
 
 # ╔═╡ Cell order:

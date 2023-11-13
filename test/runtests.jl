@@ -52,3 +52,24 @@ expr_symbols = expr.free_symbols |> collect
     @test σ3 ∉ expr_symbols
     @test sympy.symbols("θ_12", real=true) ∈ expr_symbols
 end
+
+@testset "Labels for Wigner Rotations" begin
+    triv = SymbolicThreeBodyDecays.label(TriavialWignerRotation(1))
+    for (i,j,k) in Iterators.product(1:3,1:3,1:3)
+        p = SymbolicThreeBodyDecays.label(wr(i,j,k)) => 
+            ((i != j) ? "^$(k)_$(i)($(j))" : triv)
+        @test p[1] == p[2]
+    end
+end
+
+
+@testset "Free zeta angles in amplitude" begin
+    free_symbols(refζs) = amplitude(dc, σs |> StickySymTuple, (1, 0, 0, 1);
+        refζs).doit().free_symbols .|> string |> Set
+    # 
+    @test free_symbols((3,1,1,3)) == Set(["θ_12", "R"])
+    @test free_symbols((2,1,1,3)) == Set(["θ_12", "R", "ζ^1_3(2)"])
+    @test free_symbols((3,1,1,1)) == Set(["θ_12", "R", "ζ^0_3(1)"])
+    @test free_symbols((1,1,1,2)) == Set(["θ_12", "R", "ζ^0_3(2)", "ζ^1_3(1)"])
+end
+    

@@ -18,15 +18,27 @@ end
 
 
 # rederine cosζ
-label(wr::WignerRotation) = "^$(wr.k)_" *
-                            (ispositive(wr) ? "+" : "-") *
-                            (iseven(wr) ? "e" : "0")
+label(wr::TriavialWignerRotation) = "^k_i(i)"
+
+function label(wr::WignerRotation{0})
+    i,j,k = ijk(wr)
+    "^0_" * (ispositive(wr) ? "$(k)($(i))" : "$(i)($(k))")
+end
+function label(wr::WignerRotation{3})
+    i,j,k = ijk(wr)
+    "^$(k)_" * (ispositive(wr) ? "$(i)($(j))" : "$(j)($(i))")
+end
+function label(wr::WignerRotation{2})
+    i,j,k = ijk(wr)
+    w = (iseven(wr) ? i : j)
+    return "^$(k)_" * (ispositive(wr)==iseven(wr) ? "$(w)($(k))" : "$(k)($(w))")
+end
 #
 for N in (0, 2, 3)
     eval(:(
         function cosζ(wr::WignerRotation{$(N)},
-            σs::StickySymTuple{(:σ1, :σ2, :σ3),3}, msq)
-            ζ = SymPy.symbols("ζ" * label(wr), real=true)
+            σs::StickySymTuple{(:σ1, :σ2, :σ3), 3}, msq)
+            ζ = sympy.Symbol("ζ" * label(wr), real=true)
             return cosHold(ζ, cosζ(wr, getfield(σs, :data), msq))
         end
     ))

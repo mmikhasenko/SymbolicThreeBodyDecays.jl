@@ -71,10 +71,10 @@ expr_symbols = expr.free_symbols |> collect
 end
 
 @testset "Labels for Wigner Rotations" begin
-    triv = SymbolicThreeBodyDecays.label(TriavialWignerRotation(1))
+    triv = symζ(TriavialWignerRotation(1)) |> string
     for (i, j, k) in Iterators.product(1:3, 1:3, 1:3)
-        p = SymbolicThreeBodyDecays.label(wr(i, j, k)) =>
-            ((i != j) ? "^$(k)_$(i)($(j))" : triv)
+        p = symζ(wr(i, j, k)) |> string =>
+            ((i != j) ? "ζ^$(k)_$(i)($(j))" : triv)
         @test p[1] == p[2]
     end
 end

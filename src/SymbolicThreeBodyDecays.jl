@@ -14,6 +14,7 @@ import SymPy.PyCall
 quantum_spin = PyCall.pyimport_conda("sympy.physics.quantum.spin", "sympy")
 SymPy.import_from(quantum_spin, (:WignerD, :CG,), typ=:Any)
 
+export symθij, symζ
 export StickySymTuple
 export cosHold
 include("dispatch.jl")

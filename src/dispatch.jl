@@ -45,7 +45,7 @@ for N in (0, 2, 3)
 end
 
 # redefine wignerd_doublearg
-function wignerd_doublearg_sign(two_j, two_λ1, two_λ2, cosθ::cosHold, ispositive::Bool)
+function wignerd_doublearg_sign(two_j, two_λ1, two_λ2, cosθ::cosHold, ispositive)
     half = 1 / Sym(2)
     (abs(two_λ1) > two_j || abs(two_λ2) > two_j) && return zero(cosθ.angle)
     return WignerD(two_j * half, two_λ1 * half, two_λ2 * half,

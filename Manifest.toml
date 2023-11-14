@@ -1,6 +1,6 @@
 # This file is machine-generated - editing it directly is not advised
 
-julia_version = "1.9.2"
+julia_version = "1.9.3"
 manifest_format = "2.0"
 project_hash = "f63c176ddbb0c91b9f0d27f5ddcca646803d221f"
 
@@ -368,7 +368,7 @@ version = "1.10.0"
 
 [[deps.ThreeBodyDecay]]
 deps = ["Cuba", "Parameters", "PartialWaveFunctions", "Polynomials", "QuadGK", "RecipesBase", "StaticArrays"]
-git-tree-sha1 = "afca12a9bb5fae018b782c2bdbfef568b1ba8229"
+git-tree-sha1 = "69833f51e793cd43cfadec21f230731414b5b6a3"
 repo-rev = "master"
 repo-url = "https://github.com/mmikhasenko/ThreeBodyDecay.jl"
 uuid = "e6563dab-9ca1-5843-bde3-2ccf38d63843"

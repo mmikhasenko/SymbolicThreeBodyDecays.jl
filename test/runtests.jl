@@ -24,6 +24,22 @@ end
     @test cosζ(wr(1, 2, 1), σs |> StickySymTuple, ms^2) isa cosHold
 end
 
+@testset "Sign of the angle" begin
+    _cosθ = cosθ12(σs |> StickySymTuple, ms^2)
+    θ = _cosθ.angle
+    @test SymbolicThreeBodyDecays.wignerd_doublearg_sign(2, 0, 2, _cosθ, true).doit() == sin(θ) / sqrt(Sym(2))
+    # 
+    _wr = wr(1, 2, 0)
+    _cosζ = cosζ(_wr, σs |> StickySymTuple, ms^2)
+    _ζ = _cosζ.angle
+    @test SymbolicThreeBodyDecays.wignerd_doublearg_sign(2, 0, 2, _cosζ, ispositive(_wr)).doit() == sin(_ζ) / sqrt(Sym(2))
+    # 
+    _wr = wr(2, 1, 0)
+    _cosζ = cosζ(_wr, σs |> StickySymTuple, ms^2)
+    _ζ = _cosζ.angle
+    @test SymbolicThreeBodyDecays.wignerd_doublearg_sign(2, 0, 2, _cosζ, ispositive(_wr)).doit() == sin(_ζ) / sqrt(Sym(2))
+end
+
 
 function spinparity(p)
     pt = (p[2]..., p[1])
@@ -43,6 +59,7 @@ dc = let
     DecayChainLS(3, σ -> Sym("R"); two_s=Rjp.j |> x2, parity=Rjp.p, Ps, tbs)
 end
 
+
 expr = amplitude(dc, σs |> StickySymTuple, (1, 0, 0, 1); refζs=(1, 2, 3, 1)).doit() |> simplify
 expr_symbols = expr.free_symbols |> collect
 
@@ -55,8 +72,8 @@ end
 
 @testset "Labels for Wigner Rotations" begin
     triv = SymbolicThreeBodyDecays.label(TriavialWignerRotation(1))
-    for (i,j,k) in Iterators.product(1:3,1:3,1:3)
-        p = SymbolicThreeBodyDecays.label(wr(i,j,k)) => 
+    for (i, j, k) in Iterators.product(1:3, 1:3, 1:3)
+        p = SymbolicThreeBodyDecays.label(wr(i, j, k)) =>
             ((i != j) ? "^$(k)_$(i)($(j))" : triv)
         @test p[1] == p[2]
     end
@@ -65,11 +82,11 @@ end
 
 @testset "Free zeta angles in amplitude" begin
     free_symbols(refζs) = amplitude(dc, σs |> StickySymTuple, (1, 0, 0, 1);
-        refζs).doit().free_symbols .|> string |> Set
+                              refζs).doit().free_symbols .|> string |> Set
     # 
-    @test free_symbols((3,1,1,3)) == Set(["θ_12", "R"])
-    @test free_symbols((2,1,1,3)) == Set(["θ_12", "R", "ζ^1_3(2)"])
-    @test free_symbols((3,1,1,1)) == Set(["θ_12", "R", "ζ^0_3(1)"])
-    @test free_symbols((1,1,1,2)) == Set(["θ_12", "R", "ζ^0_3(2)", "ζ^1_3(1)"])
+    @test free_symbols((3, 1, 1, 3)) == Set(["θ_12", "R"])
+    @test free_symbols((2, 1, 1, 3)) == Set(["θ_12", "R", "ζ^1_3(2)"])
+    @test free_symbols((3, 1, 1, 1)) == Set(["θ_12", "R", "ζ^0_3(1)"])
+    @test free_symbols((1, 1, 1, 2)) == Set(["θ_12", "R", "ζ^0_3(2)", "ζ^1_3(1)"])
 end
-    
+

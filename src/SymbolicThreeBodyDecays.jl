@@ -5,7 +5,8 @@ using ThreeBodyDecay
 import ThreeBodyDecay: cosθij, cosζ
 import ThreeBodyDecay: MassTuple, MandestamTuple, WignerRotation, wr
 # 
-import ThreeBodyDecay.PartialWaveFunctions: wignerd_doublearg, CG_doublearg
+import ThreeBodyDecay.PartialWaveFunctions: CG_doublearg
+import ThreeBodyDecay: wignerd_doublearg_sign
 
 using SymPy
 import SymPy.PyCall
